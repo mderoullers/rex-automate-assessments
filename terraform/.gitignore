@@ -1,0 +1,8 @@
+.terraform
+terraform.tfstate
+*.tfstate*
+terraform.tfvars
+.git
+/.idea/
+.pre-commit-config.yaml
+source.zip
