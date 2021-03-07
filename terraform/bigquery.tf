@@ -9,8 +9,14 @@ resource "google_bigquery_dataset" "assessments_dataset" {
 
   access {
     role          = "WRITER"
-    user_by_email = google_service_account.bqwriter.email
+    user_by_email = google_service_account.sa-bqeditor.email
   }
+
+  lifecycle {
+    ignore_changes = [access]
+  }
+
+  depends_on = [google_service_account.sa-bqeditor]
 }
 
 resource "google_bigquery_table" "assessment_cloud" {
@@ -34,6 +40,11 @@ resource "google_bigquery_table" "assessment_cloud" {
   },
   {
     "name": "current_timestamp",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "project_manager",
     "type": "STRING",
     "mode": "NULLABLE"
   },
